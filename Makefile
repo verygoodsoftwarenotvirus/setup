@@ -14,9 +14,9 @@ else
   PLATFORM := unknown
 endif
 
-.PHONY: setup install-packages install-starship install-fonts link-configs link-shell
+.PHONY: setup install-packages install-starship install-fonts install-journal link-configs link-shell
 
-setup: install-packages install-starship install-fonts link-configs link-shell
+setup: install-packages install-starship install-fonts install-journal link-configs link-shell
 	@echo "Setup complete. Restart your shell or run: exec \$$SHELL"
 
 install-packages:
@@ -30,6 +30,9 @@ install-starship:
 install-fonts:
 	@echo "Installing Nerd Font..."
 	@$(SETUP_DIR)/scripts/setup.sh $(PLATFORM) fonts
+
+install-journal:
+	@$(SETUP_DIR)/scripts/setup.sh $(PLATFORM) journal
 
 link-configs:
 	@echo "Linking config files..."

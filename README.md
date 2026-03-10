@@ -15,7 +15,8 @@ Then restart your shell or run `exec $SHELL`.
 
 - **Starship** — cross-shell prompt
 - **JetBrainsMono Nerd Font** — for icons and glyphs
-- **CLI tools** — git, curl, wget, jq, ripgrep, fd, bat, eza, fzf, htop
+- **CLI tools** — git, curl, wget, jq, ripgrep, fd, bat, eza, fzf, htop, go
+- **journal** — `go install github.com/verygoodsoftwarenotvirus/journal@latest`
 
 ## What Gets Linked
 
@@ -58,5 +59,6 @@ To use this setup with bash instead of zsh, add `source /path/to/setup/shell/ini
 | `make install-packages` | Install CLI tools |
 | `make install-starship` | Install Starship |
 | `make install-fonts` | Install Nerd Font |
+| `make install-journal` | Install journal app |
 | `make link-configs` | Symlink config files |
 | `make link-shell` | Symlink ~/.zshrc |

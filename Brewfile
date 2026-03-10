@@ -1,6 +1,7 @@
 # Homebrew packages for macOS (run via: brew bundle install --file=Brewfile)
 
 # CLI tools
+brew "go"
 brew "git"
 brew "curl"
 brew "wget"

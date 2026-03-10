@@ -1,4 +1,4 @@
 # Linux-specific environment variables
 
-# Example: local bin
-# export PATH="$HOME/.local/bin:$PATH"
+# Go (installed to /usr/local by setup.sh, not via apt)
+export PATH="/usr/local/go/bin:$PATH"
