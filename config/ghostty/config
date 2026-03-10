@@ -8,5 +8,6 @@ font-size = 13
 # Theme (Catppuccin Mocha - dark, cozy)
 theme = Catppuccin Mocha
 
-# Padding
-padding = 8,8
+# Window padding (points)
+window-padding-x = 8
+window-padding-y = 8

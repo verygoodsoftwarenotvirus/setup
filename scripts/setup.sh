@@ -18,7 +18,7 @@ run_packages() {
         echo "Homebrew not found. Install from https://brew.sh"
         exit 1
       fi
-      brew install git curl wget jq ripgrep fd bat eza fzf htop
+      brew bundle install --file="$SETUP_DIR/Brewfile" --quiet
       ;;
     linux)
       sudo apt-get update
@@ -31,13 +31,12 @@ run_packages() {
 run_fonts() {
   case "$OS" in
     darwin)
-      if command -v brew >/dev/null 2>&1; then
-        brew tap homebrew/cask-fonts
-        brew install --cask font-jetbrains-mono-nerd-font
-      else
+      # Font is in Brewfile; install-packages already ran brew bundle
+      if ! command -v brew >/dev/null 2>&1; then
         echo "Homebrew required for font install on macOS"
         exit 1
       fi
+      brew bundle install --file="$SETUP_DIR/Brewfile" --quiet
       ;;
     linux)
       FONT_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/fonts/JetBrainsMono"
