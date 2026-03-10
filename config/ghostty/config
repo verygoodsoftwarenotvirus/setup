@@ -1,0 +1,12 @@
+# Ghostty terminal config
+# Symlinked to ~/.config/ghostty/config
+
+# Nerd Font for icons (JetBrainsMono Nerd Font - install via make install-fonts)
+font-family = JetBrainsMono Nerd Font
+font-size = 13
+
+# Theme (Catppuccin Mocha - dark, cozy)
+theme = Catppuccin Mocha
+
+# Padding
+padding = 8,8

@@ -1,0 +1,27 @@
+# Managed .zshrc - symlinked to ~/.zshrc
+# Sources shell/init.sh for functions, aliases, env (platform-aware)
+
+# Resolve repo path from this file's location (follow symlinks via :A)
+_setup_repo="$(cd "$(dirname "${${(%):-%x}:A}")/.." && pwd)"
+if [ -f "$_setup_repo/shell/init.sh" ]; then
+  . "$_setup_repo/shell/init.sh"
+fi
+unset _setup_repo
+
+# Zsh-specific options
+setopt autocd
+setopt extended_glob
+setopt no_beep
+setopt share_history
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+
+HISTSIZE=50000
+SAVEHIST=50000
+HISTFILE="${HISTFILE:-$HOME/.zsh_history}"
+
+# Initialize Starship (cross-shell prompt)
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
