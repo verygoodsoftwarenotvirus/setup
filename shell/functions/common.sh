@@ -16,22 +16,3 @@ gsync() {
 clear_git_stashes() {
   git stash clear
 }
-
-# Reset to HEAD~1. Usage: greset [soft|mixed|hard] [n]
-# Default: mixed, 1. Examples: greset soft 2  =>  git reset --soft HEAD~2
-greset() {
-  local mode="${1:-mixed}"
-  local n="${2:-1}"
-  case "$mode" in
-    soft|mixed|hard) git reset --"$mode" "HEAD~${n}" ;;
-    *) echo "usage: greset [soft|mixed|hard] [n]" >&2; return 1 ;;
-  esac
-}
-
-# Flatten/squash the last n commits into one (soft reset then recommit).
-# Usage: gflatten [n]   (default n=2 for "last 2 commits become 1")
-gflatten() {
-  local n="${1:-2}"
-  [ "$n" -lt 2 ] && echo "n must be >= 2" >&2 && return 1
-  git reset --soft "HEAD~$n" && git commit -C ORIG_HEAD
-}
