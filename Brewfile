@@ -21,6 +21,14 @@ brew "nnn"      # Fast file manager
 brew "lazydocker" # Docker containers, images, logs
 brew "k9s"        # Kubernetes TUI: pods, logs, exec, etc.
 brew "kubectl"    # Kubernetes CLI
+brew "gurk"       # Signal Messenger TUI (https://github.com/boxdot/gurk-rs)
+brew "mutt"       # Email client (https://gitlab.com/muttmua/mutt)
+brew "tuisky"     # Bluesky TUI (https://github.com/sugyan/tuisky)
+brew "wifitui"    # WiFi TUI (https://github.com/shazow/wifitui)
+
+# # browsh (text-based browser). Requires up-to-date Xcode Command Line Tools.
+# tap "browsh-org/browsh"
+# brew "browsh-org/browsh/browsh"   # https://github.com/browsh-org/browsh
 
 # Nerd Font
 cask "font-jetbrains-mono-nerd-font"
