@@ -1,0 +1,8 @@
+# Private environment variables (do not commit filled-in values).
+# This template is copied to ~/.env_vars.sh by `make setup` only if that file doesn't exist.
+# Edit ~/.env_vars.sh and fill in values; it is sourced from shell/init.sh when present.
+# Used by TUIs, MCPJungle (e.g. GitHub MCP server), and other tools.
+# After filling these in, run: ./scripts/register-mcpjungle-github.sh (with MCPJungle server running).
+
+export GITHUB_PERSONAL_ACCESS_TOKEN=
+# export MCPJUNGLE_REGISTRY_URL=http://127.0.0.1:8080   # optional; default shown

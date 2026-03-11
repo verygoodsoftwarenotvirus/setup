@@ -20,14 +20,30 @@ case "$(uname -s)" in
   *)        export SETUP_OS=unknown ;;
 esac
 
-# Source env, aliases, functions (common first, then platform-specific)
+# Source env, aliases, functions. Prefer combined files from make (common+platform in one file).
 _source_if_exists() {
   [ -f "$1" ] && [ -s "$1" ] && . "$1"
 }
 
-_source_if_exists "$SETUP_DIR/shell/env/common.sh"
-_source_if_exists "$SETUP_DIR/shell/env/$SETUP_OS.sh"
-_source_if_exists "$SETUP_DIR/shell/aliases/common.sh"
-_source_if_exists "$SETUP_DIR/shell/aliases/$SETUP_OS.sh"
-_source_if_exists "$SETUP_DIR/shell/functions/common.sh"
-_source_if_exists "$SETUP_DIR/shell/functions/$SETUP_OS.sh"
+# Private env vars (secrets, tokens). Template: config/env_vars.sh.template → ~/.env_vars.sh via make setup
+_source_if_exists "$HOME/.env_vars.sh"
+
+SETUP_GENERATED="${HOME}/.config/setup"
+if [ -f "$SETUP_GENERATED/env.sh" ]; then
+  . "$SETUP_GENERATED/env.sh"
+else
+  _source_if_exists "$SETUP_DIR/shell/env/common.sh"
+  _source_if_exists "$SETUP_DIR/shell/env/$SETUP_OS.sh"
+fi
+if [ -f "$SETUP_GENERATED/aliases.sh" ]; then
+  . "$SETUP_GENERATED/aliases.sh"
+else
+  _source_if_exists "$SETUP_DIR/shell/aliases/common.sh"
+  _source_if_exists "$SETUP_DIR/shell/aliases/$SETUP_OS.sh"
+fi
+if [ -f "$SETUP_GENERATED/functions.sh" ]; then
+  . "$SETUP_GENERATED/functions.sh"
+else
+  _source_if_exists "$SETUP_DIR/shell/functions/common.sh"
+  _source_if_exists "$SETUP_DIR/shell/functions/$SETUP_OS.sh"
+fi

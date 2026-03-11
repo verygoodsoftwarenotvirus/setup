@@ -66,6 +66,55 @@ run_starship() {
   sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y
 }
 
+run_browsh() {
+  BIN_DIR="${HOME}/.local/bin"
+  mkdir -p "$BIN_DIR"
+  case "$OS" in
+    darwin)
+      ARCH="$(uname -m)"
+      [ "$ARCH" = "arm64" ] || ARCH="amd64"
+      ASSET_PATTERN="browsh_.*_darwin_${ARCH}\.tar\.gz"
+      ;;
+    linux)
+      ARCH="$(uname -m)"
+      [ "$ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="amd64"
+      ASSET_PATTERN="browsh_.*_linux_${ARCH}$"
+      ;;
+    *) echo "Unknown OS: $OS"; exit 1 ;;
+  esac
+  RELEASES_JSON="$(mktemp)"
+  trap 'rm -f "$RELEASES_JSON"' EXIT
+  curl -sSL "https://api.github.com/repos/browsh-org/browsh/releases?per_page=20" -o "$RELEASES_JSON"
+  ASSET_URL="$(jq -r --arg pat "$ASSET_PATTERN" '
+    .[] | .tag_name as $tag | .assets[] | select(.name | test($pat)) | .browser_download_url | select(. != null)
+  ' "$RELEASES_JSON" 2>/dev/null | head -1)"
+  if [ -z "$ASSET_URL" ] || [ "$ASSET_URL" = "null" ]; then
+    echo "No Browsh binary found for $OS/$ARCH"
+    exit 1
+  fi
+  echo "Installing Browsh to $BIN_DIR..."
+  TMP_ARCHIVE="$(mktemp)"
+  trap 'rm -f "$RELEASES_JSON" "$TMP_ARCHIVE"' EXIT
+  curl -sSL "$ASSET_URL" -o "$TMP_ARCHIVE"
+  if [ "$OS" = "darwin" ]; then
+    tar -xzf "$TMP_ARCHIVE" -C "$BIN_DIR"
+    # tarball may contain a single "browsh" binary or a path like browsh_1.8.2_darwin_arm64/browsh
+    if [ -f "$BIN_DIR/browsh" ]; then
+      : # already at top level
+    else
+      BROWSH_BIN="$(find "$BIN_DIR" -maxdepth 2 -type f -name "browsh" 2>/dev/null | head -1)"
+      if [ -n "$BROWSH_BIN" ]; then
+        mv "$BROWSH_BIN" "$BIN_DIR/browsh"
+        find "$BIN_DIR" -mindepth 1 -maxdepth 1 -type d -exec rm -rf {} + 2>/dev/null || true
+      fi
+    fi
+  else
+    mv "$TMP_ARCHIVE" "$BIN_DIR/browsh"
+  fi
+  chmod +x "$BIN_DIR/browsh"
+  echo "Browsh installed at $BIN_DIR/browsh (ensure $BIN_DIR is on your PATH)"
+}
+
 run_journal() {
   case "$OS" in
     darwin)
@@ -101,6 +150,7 @@ case "$CMD" in
   packages) run_packages ;;
   fonts)    run_fonts ;;
   starship) run_starship ;;
+  browsh)   run_browsh ;;
   journal)  run_journal ;;
   *) echo "Unknown command: $CMD"; exit 1 ;;
 esac

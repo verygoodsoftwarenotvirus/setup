@@ -12,6 +12,7 @@ brew "bat"
 brew "eza"
 brew "fzf"
 brew "htop"
+brew "mcpjungle/mcpjungle/mcpjungle"  # Self-hosted MCP gateway for AI agents (https://github.com/mcpjungle/MCPJungle)
 
 # TUIs (terminal user interfaces)
 brew "lazygit"   # Git: stage, commit, branches, rebase, etc.
