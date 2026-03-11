@@ -22,7 +22,7 @@ run_packages() {
       ;;
     linux)
       sudo apt-get update
-      sudo apt-get install -y git curl wget jq ripgrep fd-find bat eza fzf htop unzip
+      sudo apt-get install -y git curl wget jq ripgrep fd-find bat eza fzf htop unzip ncdu nnn btop kubectl
       ;;
     *) echo "Unknown OS: $OS"; exit 1 ;;
   esac

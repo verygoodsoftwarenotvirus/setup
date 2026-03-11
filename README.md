@@ -15,8 +15,24 @@ Then restart your shell or run `exec $SHELL`.
 
 - **Starship** — cross-shell prompt
 - **JetBrainsMono Nerd Font** — for icons and glyphs
-- **CLI tools** — git, curl, wget, jq, ripgrep, fd, bat, eza, fzf, htop, go
+- **CLI tools** — git, curl, wget, jq, ripgrep, fd, bat, eza, fzf, htop, go, kubectl
+- **TUIs** — lazygit (`lg`), lazydocker (`ld`), k9s, btop, ncdu, nnn (macOS via Homebrew; Linux: ncdu, nnn, btop, kubectl via apt; lazygit/lazydocker/k9s on Linux: `go install ...@latest` or release binaries)
 - **journal** — `go install github.com/verygoodsoftwarenotvirus/journal@latest`
+
+## TUIs (Terminal User Interfaces)
+
+| Tool | Purpose | Alias |
+|------|---------|-------|
+| **lazygit** | Git: stage, commit, branches, rebase, stashes | `lg` |
+| **lazydocker** | Docker: containers, images, logs | `ld` |
+| **btop** | System monitor (CPU, memory, disk, network) | — |
+| **ncdu** | Interactive disk usage | — |
+| **nnn** | Fast keyboard-driven file manager | — |
+| **k9s** | Kubernetes: pods, logs, exec, describe | — |
+| **kubectl** | Kubernetes CLI (used by k9s and for ad‑hoc commands) | — |
+| **fzf** | Fuzzy finder (history, files, etc.) | — |
+
+On Linux, `lazygit`, `lazydocker`, and `k9s` are not in the default apt list; install with Go: `go install github.com/jesseduffield/lazygit@latest`, `go install github.com/jesseduffield/lazydocker@latest`, `go install github.com/derailed/k9s@latest`, or use the release binaries from GitHub.
 
 ## What Gets Linked
 
